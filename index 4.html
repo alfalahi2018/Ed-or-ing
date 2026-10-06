@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sara's Mood Mission – -ed / -ing Adjectives</title>
+<style>
+:root{--night:#0e2a38;--sand:#f3d9a4;--coral:#ff6b4a;--mint:#4fd1a5;--violet:#7a5cff;--ink:#1c2b33;--paper:#fff8ea}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Baloo 2","Fredoka","Trebuchet MS","Segoe UI",Tahoma,sans-serif;color:var(--paper);min-height:100vh;padding-bottom:60px;
+background:radial-gradient(circle at 85% 8%,#2a7a96 0,transparent 40%),linear-gradient(#0e2a38,#09171f)}
+.bar{position:sticky;top:0;z-index:20;background:#0b2230ee;padding:10px 16px;border-bottom:3px solid #1f5a73}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:clamp(16px,2.6vw,22px);font-weight:700}
+.track{position:relative;height:40px;margin-top:8px;background:#ffffff1f;border-radius:20px;overflow:hidden}
+.track>*{position:absolute;top:2px;transition:left .7s ease}
+.flag{right:10px;font-size:26px;top:4px!important}
+#run{width:36px;height:36px}#mon{font-size:30px;top:3px!important}
+main{padding:10px 14px}
+.card{background:var(--paper);color:var(--ink);border-radius:28px;padding:22px;max-width:880px;margin:16px auto;text-align:center;box-shadow:0 10px 0 #0006}
+h1{font-size:clamp(34px,7vw,60px);margin:6px 0;color:var(--violet);line-height:1}
+h2{margin:6px 0;font-size:clamp(26px,5vw,40px);color:var(--coral)}
+.ar{direction:rtl;font-size:clamp(18px,3vw,24px);color:#35708a;margin:6px 0}
+.big{font-size:80px;line-height:1}
+.btn{font:inherit;font-size:clamp(20px,3.4vw,28px);font-weight:700;padding:10px 34px;border:0;border-radius:40px;background:var(--mint);color:#06382b;cursor:pointer;box-shadow:0 6px 0 #2a9473;margin-top:14px}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #2a9473}
+.btn:focus-visible,.chip:focus-visible{outline:4px solid var(--violet);outline-offset:3px}
+.scene{display:flex;justify-content:center;align-items:center;gap:14px;background:#d8f0f7;border-radius:20px;padding:10px;margin-bottom:12px}
+.scene svg{height:120px;width:auto}.scene .face{height:104px}
+.ask{font-size:clamp(18px,3vw,24px);margin:6px 0 14px;color:#4a5d68}
+.sent{font-size:clamp(24px,4.6vw,40px);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;font-weight:700}
+.hint{color:#8a6d1e;font-size:.7em}
+.drop{min-width:190px;min-height:58px;border:4px dashed var(--violet);border-radius:16px;background:#efeaff;display:inline-flex;align-items:center;justify-content:center;transition:.15s;font-size:inherit;color:var(--ink)}
+.drop.over{background:#d6caff;transform:scale(1.06)}
+.drop.ok{border:4px solid var(--mint);background:#d5f7ea;padding:0 18px}
+.tray{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:22px;padding:16px;background:#ffefc7;border-radius:20px}
+.chip{padding:8px 22px;border-radius:32px;background:var(--coral);color:#fff;font-size:clamp(20px,3.6vw,32px);font-weight:700;cursor:grab;touch-action:none;user-select:none;box-shadow:0 5px 0 #b83f22}
+.chip.long{border-radius:18px;font-size:clamp(17px,2.8vw,24px);text-align:left;max-width:520px}
+.chip.sel{outline:4px solid var(--violet)}
+.chip.ghost{position:fixed;pointer-events:none;z-index:99;transform:translate(-50%,-50%) rotate(-5deg);box-shadow:0 12px 20px #0005}
+.shake{animation:sh .4s}
+@keyframes sh{20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(8px)}}
+.msg{min-height:34px;margin-top:16px;font-size:clamp(18px,2.8vw,24px);font-weight:700}
+.msg.good{color:#1f8a68}.msg.bad{color:#c4361a}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+.bin h3{margin:0 0 6px;font-size:clamp(22px,4vw,32px)}.bin small{display:block;font-size:.55em;color:#4a5d68;font-weight:600}
+.bin .drop{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;justify-content:center;min-height:170px;width:100%;padding:10px;min-width:0}
+.tag{background:var(--mint);color:#06382b;padding:4px 14px;border-radius:20px;font-weight:700;font-size:clamp(16px,2.6vw,22px);height:fit-content}
+.story{background:#e9e3ff;border-radius:16px;padding:12px;font-size:clamp(18px,3vw,26px);margin-bottom:10px}
+.ov{position:fixed;inset:0;background:#000b;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.conf{position:fixed;top:-40px;font-size:28px;animation:fall 2.6s linear forwards;z-index:98;pointer-events:none}
+@keyframes fall{to{transform:translateY(112vh) rotate(420deg)}}
+footer{position:fixed;bottom:0;left:0;right:0;text-align:center;background:#0b2230;padding:8px;font-size:15px;color:var(--sand);z-index:10}
+@media(max-width:560px){.bins{grid-template-columns:1fr}.drop{min-width:140px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="row"><span id="lvname">Sara's Mood Mission</span><span id="hearts"></span><span id="stars"></span></div>
+  <div class="track"><span class="flag">🏁</span><div id="mon">👾</div><div id="run"></div></div>
+</header>
+<main id="main"></main>
+<footer>Created by T. Badria Alfalahi &nbsp;|&nbsp; English · Grade 6</footer>
+
+<script>
+const $=s=>document.querySelector(s), main=$('#main');
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const TOTAL=17;
+let lives=3,stars=0,done=0,lvl=0,sS=0,sD=0,sel=null,handler=null,solved=false;
+
+/* ---------- drawings ---------- */
+const F=m=>{const eyes={bored:'<path d="M34 47h12M54 47h12" stroke="#222" stroke-width="3" stroke-linecap="round"/>',tired:'<path d="M34 47q6 6 12 0M54 47q6 6 12 0" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/>'}[m]||'<circle cx="40" cy="47" r="4" fill="#222"/><circle cx="60" cy="47" r="4" fill="#222"/>';
+const mouth={smile:'<path d="M38 58q12 12 24 0" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/>',excited:'<path d="M37 56q13 18 26 0z" fill="#c0392b"/><circle cx="32" cy="56" r="5" fill="#ff9aa2" opacity=".8"/><circle cx="68" cy="56" r="5" fill="#ff9aa2" opacity=".8"/>',bored:'<path d="M42 63h16" stroke="#222" stroke-width="3" stroke-linecap="round"/>',tired:'<ellipse cx="50" cy="63" rx="4" ry="5" fill="#222"/><text x="70" y="30" font-size="18" fill="#7a5cff" font-weight="700">z</text><text x="78" y="20" font-size="13" fill="#7a5cff" font-weight="700">z</text>',embar:'<path d="M39 63q5-5 11 0t11 0" stroke="#222" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="33" cy="55" r="6" fill="#ff4d4d" opacity=".65"/><circle cx="67" cy="55" r="6" fill="#ff4d4d" opacity=".65"/><path d="M76 30q6 9 0 13q-6-4 0-13z" fill="#6ec6ff"/>'}[m];
+return `<svg class="face" viewBox="0 0 100 100"><ellipse cx="50" cy="54" rx="41" ry="44" fill="#7a5cff"/><circle cx="50" cy="52" r="30" fill="#f6d2b0"/>${eyes}${mouth}</svg>`};
+const sv=i=>`<svg viewBox="0 0 200 120">${i}</svg>`;
+const P={
+film:sv('<rect x="20" y="8" width="160" height="84" rx="10" fill="#1b1b2f"/><rect x="30" y="18" width="140" height="64" rx="5" fill="#34457a"/><circle cx="100" cy="50" r="18" fill="#ffd166"/><path d="M94 40l18 10-18 10z" fill="#1b1b2f"/><path d="M150 118l4-20h24l4 20z" fill="#e63946"/><circle cx="158" cy="94" r="6" fill="#fff3c4"/><circle cx="170" cy="92" r="6" fill="#fff3c4"/>'),
+trip:sv('<circle cx="165" cy="28" r="16" fill="#ffd166"/><rect x="55" y="40" width="90" height="64" rx="10" fill="#ff6b4a"/><path d="M85 40v-12h30v12" stroke="#8a3a22" stroke-width="7" fill="none"/><rect x="55" y="64" width="90" height="7" fill="#c24427"/><rect x="92" y="60" width="16" height="15" rx="3" fill="#ffd166"/>'),
+sight:sv('<circle cx="160" cy="26" r="17" fill="#ffd166"/><path d="M0 100q50-36 100 0t100 0v20H0z" fill="#f3d9a4"/><rect x="60" y="48" width="70" height="46" fill="#d9a65f"/><path d="M60 48h10v-8h10v8h10v-8h10v8h10v-8h10v8h10" fill="#d9a65f"/><path d="M88 94v-20q7-12 14 0v20z" fill="#7a5a2a"/>'),
+show:sv('<rect x="10" y="6" width="180" height="104" rx="8" fill="#5a1530"/><path d="M10 6q40 10 40 104H10zM190 6q-40 10-40 104h40z" fill="#9b1d46"/><rect x="50" y="94" width="100" height="16" fill="#c98a3b"/><text x="100" y="72" font-size="46" text-anchor="middle">⭐</text>'),
+museum:sv('<path d="M25 44L100 8l75 36z" fill="#b8c4d6"/><g fill="#e8edf5"><rect x="38" y="48" width="14" height="48"/><rect x="72" y="48" width="14" height="48"/><rect x="114" y="48" width="14" height="48"/><rect x="148" y="48" width="14" height="48"/></g><rect x="25" y="96" width="150" height="12" rx="3" fill="#8e9bb0"/>'),
+bag:sv('<rect x="60" y="48" width="80" height="56" rx="10" fill="#ff6b4a"/><path d="M84 48v-10h32v10" stroke="#8a3a22" stroke-width="6" fill="none"/><rect x="60" y="68" width="80" height="6" fill="#c24427"/>')};
+const SC={film:P.film,trip:P.trip+F('excited'),sight:P.sight,embar:F('embar'),show:P.show,tired:F('tired')+P.bag,museum:P.museum,fell:F('embar'),sara:F('smile')+P.show};
+const scene=k=>`<div class="scene">${SC[k]}</div>`;
+
+/* ---------- data ---------- */
+const L1=[
+{pre:'The film was',post:'.',o:['boring','bored'],a:'boring',sc:'film',why:'The film is the thing that makes people feel bored → <b>boring</b> (-ing).'},
+{pre:'I was',post:'about the trip.',o:['exciting','excited'],a:'excited',sc:'trip',why:'This is how I feel → <b>excited</b> (-ed).'},
+{pre:'Sightseeing is',post:'.',o:['tiring','tired'],a:'tiring',sc:'sight',why:'Sightseeing is the thing that makes people tired → <b>tiring</b> (-ing).'},
+{pre:'She felt',post:'.',o:['embarrassing','embarrassed'],a:'embarrassed',sc:'embar',why:'This is how she feels → <b>embarrassed</b> (-ed).'}];
+const L2=[
+{pre:'The show was',post:'.',hint:'excite',o:['exciting','excited','excite'],a:'exciting',sc:'show',why:'The show is the thing → <b>exciting</b> (-ing).'},
+{pre:'I was',post:'after the long trip.',hint:'tire',o:['tired','tiring','tire'],a:'tired',sc:'tired',why:'This is how I feel → <b>tired</b> (-ed).'},
+{pre:'The museum was',post:'.',hint:'interest',o:['interesting','interested','interest'],a:'interesting',sc:'museum',why:'The museum is the thing → <b>interesting</b> (-ing).'},
+{pre:'She felt',post:'when she fell.',hint:'embarrass',o:['embarrassed','embarrassing','embarrass'],a:'embarrassed',sc:'fell',why:'This is how she feels → <b>embarrassed</b> (-ed).'}];
+const LV=[
+{n:'Cave of Choices',ic:'🕳️',story:"The Mood Monster hid Sara's words in a dark cave. Choose the right adjective to light each torch!",ask:'Drag the correct adjective into the gap.',ar:'اسحب الصفة الصحيحة إلى الفراغ'},
+{n:'Bridge of Words',ic:'🌉',story:'The bridge is breaking! Change the word in brackets into the right form to cross.',ask:'Drag the correct form of the word.',ar:'اسحب الصيغة الصحيحة للكلمة'},
+{n:"Sara's Secret Show",ic:'🎭',story:'The last gate! Sort the words, then explain why Sara felt excited.',ask:'',ar:'رتّب الكلمات في الصندوق المناسب'}];
+
+/* ---------- sound & effects ---------- */
+let ac;const beep=(f,d=.12,t='sine')=>{try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.value=f;g.gain.value=.07;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}};
+const good=()=>{beep(660);setTimeout(()=>beep(880),110)},bad=()=>beep(170,.3,'sawtooth');
+const confetti=(n=44)=>{for(let i=0;i<n;i++){const s=document.createElement('span');s.className='conf';s.textContent=['⭐','🎉','✨','🌟'][i%4];s.style.left=Math.random()*100+'vw';s.style.animationDelay=Math.random()*.7+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),3600)}};
+
+/* ---------- HUD ---------- */
+function hud(){
+ $('#hearts').textContent='❤️'.repeat(lives)+'🖤'.repeat(3-lives);
+ $('#stars').textContent='⭐ '+stars;
+ const p=done/TOTAL, m=Math.max(-.04,p-lives*.07);
+ $('#run').style.left=`calc((100% - 90px)*${p} + 4px)`;
+ $('#mon').style.left=`calc((100% - 90px)*${m})`;
+}
+$('#run').innerHTML=F('smile');
+
+/* ---------- drag & drop (mouse, touch, smartboard) + tap-to-place ---------- */
+const hit=e=>{const el=document.elementFromPoint(e.clientX,e.clientY);return el&&el.closest('.drop:not(.ok)')};
+const clearOver=()=>document.querySelectorAll('.drop.over').forEach(d=>d.classList.remove('over'));
+function select(c){document.querySelectorAll('.chip.sel').forEach(x=>x.classList.remove('sel'));if(sel===c){sel=null}else{sel=c;c.classList.add('sel')}}
+function drag(chip){
+ chip.tabIndex=0;
+ chip.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(chip)}});
+ chip.addEventListener('pointerdown',e=>{
+  e.preventDefault();const sx=e.clientX,sy=e.clientY;let g=null;
+  const mv=ev=>{
+   if(!g&&Math.hypot(ev.clientX-sx,ev.clientY-sy)>8){g=chip.cloneNode(true);g.classList.add('ghost');document.body.appendChild(g);chip.style.opacity=.3}
+   if(g){g.style.left=ev.clientX+'px';g.style.top=ev.clientY+'px';clearOver();const t=hit(ev);if(t)t.classList.add('over')}};
+  const up=ev=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);removeEventListener('pointercancel',up);clearOver();
+   if(g){g.remove();chip.style.opacity=1;const t=hit(ev);if(t&&handler&&!solved)handler(chip,t)}else select(chip)};
+  addEventListener('pointermove',mv);addEventListener('pointerup',up);addEventListener('pointercancel',up);
+ });
+}
+document.addEventListener('click',e=>{const d=e.target.closest('.drop:not(.ok)');if(d&&sel&&handler&&!solved){const c=sel;sel=null;c.classList.remove('sel');handler(c,d)}});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&sel&&document.activeElement.classList.contains('drop')){e.preventDefault();document.activeElement.click()}});
+
+/* ---------- feedback ---------- */
+const say=(t,c)=>{const m=$('#msg');if(m){m.className='msg '+c;m.innerHTML=t}};
+function right(chip,drop,why){
+ good();stars++;done++;hud();
+ if(drop.dataset.k==='g'||drop.dataset.k==='r'){drop.classList.add('ok');drop.textContent=chip.textContent;chip.remove();solved=true;confetti(10)}
+ say('✅ '+why,'good');
+}
+function wrong(chip,tip){
+ bad();lives--;hud();chip.classList.add('shake');setTimeout(()=>chip.classList.remove('shake'),450);
+ say('❌ '+tip,'bad');
+ if(lives<=0)caught();
+}
+function nextBtn(fn){const b=document.createElement('button');b.className='btn';b.textContent='Next';b.onclick=fn;$('#nav').appendChild(b);b.focus()}
+
+/* ---------- screens ---------- */
+function start(){
+ lives=3;stars=0;done=0;lvl=0;solved=true;handler=null;hud();$('#lvname').textContent="Sara's Mood Mission";
+ main.innerHTML=`<div class="card"><div style="width:150px;margin:auto">${F('excited')}</div><h1>Sara's Mood Mission</h1>
+ <p class="ask">The Mood Monster is chasing Sara! Use <b>-ed</b> and <b>-ing</b> adjectives to win her words back. 3 hearts. Don't let the monster catch you!</p>
+ <p class="ar">ساعد سارة في الهروب من وحش المزاج!</p><button class="btn" id="go">Start the mission</button></div>`;
+ $('#go').onclick=()=>intro(0);
+}
+function intro(i){
+ lvl=i;sS=stars;sD=done;solved=true;handler=null;$('#lvname').textContent='Level '+(i+1)+': '+LV[i].n;
+ main.innerHTML=`<div class="card"><div class="big">${LV[i].ic}</div><h2>Level ${i+1}: ${LV[i].n}</h2><p class="ask">${LV[i].story}</p><p class="ar">${LV[i].ar}</p><button class="btn" id="go">Go!</button></div>`;
+ $('#go').onclick=()=>begin(i);
+}
+function begin(i){lvl=i;if(i===0)renderQ(L1,0);else if(i===1)renderQ(L2,0);else renderSort()}
+function renderQ(set,i){
+ const q=set[i];solved=false;sel=null;
+ main.innerHTML=`<div class="card">${scene(q.sc)}<p class="ask">Question ${i+1} of 4 · ${LV[lvl].ask}</p>
+ <div class="sent"><span>${q.pre}</span><span class="drop" data-k="g" tabindex="0" aria-label="gap"></span><span>${q.post}</span>${q.hint?`<span class="hint">(${q.hint})</span>`:''}</div>
+ <div class="tray">${shuf(q.o).map(w=>`<div class="chip">${w}</div>`).join('')}</div>
+ <div class="msg" id="msg"></div><div id="nav"></div></div>`;
+ main.querySelectorAll('.chip').forEach(drag);
+ handler=(c,d)=>{
+  if(c.textContent===q.a){right(c,d,q.why);nextBtn(()=>i+1<set.length?renderQ(set,i+1):finishLevel())}
+  else wrong(c,'Not yet! Ask: is it the THING (-ing) or the FEELING (-ed)?')};
+}
+function renderSort(){
+ const W=[['amazing','ing'],['boring','ing'],['surprising','ing'],['tiring','ing'],['amazed','ed'],['bored','ed'],['surprised','ed'],['tired','ed']];
+ let left=W.length;solved=false;sel=null;
+ main.innerHTML=`<div class="card">${scene('sara')}<p class="ask">Part 1 · Drag each word into the right box.</p>
+ <div class="bins"><div class="bin"><h3>-ing<small>describes the thing (the show) 🎭</small></h3><div class="drop" data-k="ing" tabindex="0"></div></div>
+ <div class="bin"><h3>-ed<small>describes the feeling (Sara) 🙂</small></h3><div class="drop" data-k="ed" tabindex="0"></div></div></div>
+ <div class="tray">${shuf(W).map(w=>`<div class="chip" data-t="${w[1]}">${w[0]}</div>`).join('')}</div>
+ <div class="msg" id="msg"></div><div id="nav"></div></div>`;
+ main.querySelectorAll('.chip').forEach(drag);
+ handler=(c,d)=>{
+  if(c.dataset.t===d.dataset.k){
+   good();stars++;done++;hud();const t=document.createElement('span');t.className='tag';t.textContent=c.textContent;d.appendChild(t);c.remove();say('✅ Great sorting!','good');
+   if(--left===0){solved=true;confetti(14);nextBtn(renderReason)}
+  }else wrong(c,'Think: does it describe the show, or how Sara feels?')};
+}
+function renderReason(){
+ solved=false;sel=null;
+ const R=[['Because it describes how Sara FEELS.',1],['Because it describes the show.',0],['Because -ed always means the past.',0]];
+ main.innerHTML=`<div class="card">${scene('sara')}<div class="story">Sara went to a fantastic show. She smiled and talked about it all day.</div>
+ <p class="ask">Part 2 · Sara felt <b>excited</b>. Why did we choose the -ed adjective? Drag the right reason.</p>
+ <div class="sent"><span class="drop" data-k="r" tabindex="0" style="min-width:min(100%,420px)">Drop the reason here</span></div>
+ <div class="tray">${shuf(R).map(r=>`<div class="chip long" data-r="${r[1]}">${r[0]}</div>`).join('')}</div>
+ <div class="msg" id="msg"></div><div id="nav"></div></div>`;
+ main.querySelectorAll('.chip').forEach(drag);
+ handler=(c,d)=>{
+  if(c.dataset.r==='1'){right(c,d,'Yes! -ed adjectives tell us how a person feels.');nextBtn(finishLevel)}
+  else wrong(c,'Look again: who has the feeling, Sara or the show?')};
+}
+function finishLevel(){if(lvl<2)intro(lvl+1);else end()}
+function caught(){
+ solved=true;const o=document.createElement('div');o.className='ov';
+ o.innerHTML=`<div class="card"><div class="big">👾</div><h2>The Mood Monster caught you!</h2><p class="ask">Don't worry. Try this level again.</p><p class="ar">لا تقلق، حاول مرة أخرى!</p><button class="btn" id="re">Try again</button></div>`;
+ document.body.appendChild(o);
+ $('#re').onclick=()=>{o.remove();lives=3;stars=sS;done=sD;hud();begin(lvl)};
+}
+function end(){
+ solved=true;handler=null;done=TOTAL;hud();$('#lvname').textContent='Mission complete!';
+ const r=stars/TOTAL, m=r>=.9?'Superstar! You escaped the Mood Monster!':r>=.6?'Great job, explorer! Play again for more stars.':'You made it! Try again to win more stars.';
+ main.innerHTML=`<div class="card"><div style="width:150px;margin:auto">${F('excited')}</div><h1>${stars} / ${TOTAL} ⭐</h1><h2>${m}</h2>
+ <p class="ask">Remember: <b>-ing</b> describes the thing. <b>-ed</b> describes the feeling.</p><p class="ar">أحسنت! أنت بطل اللغة الإنجليزية</p><button class="btn" id="again">Play again</button></div>`;
+ $('#again').onclick=start;confetti(70);
+}
+start();
+</script>
+</body>
+</html>
